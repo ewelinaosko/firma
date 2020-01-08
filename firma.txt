@@ -1,0 +1,6 @@
+Firma Osram
+Szef: Msciwoj Kowalski; 9.999999E7;
+Pracownicy: 3
+Krzysztof Nowak; 123000.0;
+Wanda Kowalska; 23000.0;
+Adam Malysz; 323000.0;

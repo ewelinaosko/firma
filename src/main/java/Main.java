@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -41,9 +42,37 @@ public class Main {
 
         try {
             byte[] dataReaded = Files.readAllBytes(path);
-            System.out.println(new String(dataReaded));
-        }
-        catch (IOException e) {
+            String dataString = new String(dataReaded);
+            //  System.out.println(dataString);
+            String nazwaZPliku = dataString.split("\\s")[1];
+            String szefZPliku = (dataString.split("\\s")[4] + " " + dataString.split("\\s")[5]).split(";")[0];
+            String wynagrodzenieSzefaZPliku = dataString.split(";")[1].split("\\s")[1];
+
+            List<String> pracownicyZPlikuStringLine = new ArrayList<>(Arrays.asList(dataString.split("\\n"))); //List.of(dataString.split("\\s"));
+
+            List<Pracownik> pracownicyZPliku = new ArrayList<>();
+
+            int linesCounter = 0;
+            for (String element : pracownicyZPlikuStringLine) {
+                linesCounter++;
+             //   System.out.println(element);
+                if (linesCounter > 3) {
+                    String noweImie = element.split(" ")[0];
+                    //System.out.println("!"+noweImie);
+                    String noweNazwisko = element.split(" ")[1].split(";")[0];
+                    //System.out.println("!"+noweNazwisko);
+                    String noweWynagrodzenie = element.split(" ")[2].split(";")[0];
+                   // System.out.println("!"+noweWynagrodzenie);
+                    Pracownik nowyPracownik = new Pracownik(noweImie, noweNazwisko, Double.valueOf(noweWynagrodzenie));
+                    pracownicyZPliku.add(nowyPracownik);
+                }
+
+            }
+
+             Firma nowaFirma = new Firma(nazwaZPliku, szefZPliku, Double.valueOf(wynagrodzenieSzefaZPliku), pracownicyZPliku);
+            System.out.printf("--- Sprawdzenie: ---%n%s%n%s%n%s%n%s%n", nowaFirma.getNazwa(), nowaFirma.getSzef(),nowaFirma.getWynagrodzenieSzefa(), nowaFirma.toString());
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -76,4 +105,5 @@ Pracownicy: <Liczba>
 
 Etap iii)
 Stwórz metodę odczytującą Firmę z pliku w formacie określonym w etapie ii).
+stworzenie obiektu klasy Firma na podstawie tekstu wczytanego z pliku
  */

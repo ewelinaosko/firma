@@ -29,6 +29,10 @@ public class Firma {
         this.pracownicy = pracownicy;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Firma{" +
+                "pracownicy=" + pracownicy +
+                '}';
+    }
 }
